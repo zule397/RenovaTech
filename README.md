@@ -1,7 +1,7 @@
 # RenovaTech
 Trabajo de Base de Datos – Tercer Ciclo Ingeniería de Sistemas 
 
-Este repositorio contiene el **script JSON** oficial del proyecto *RenovaTech*, desarrollado como parte del curso de Base de Datos.  
+Este repositorio contiene el **script JSON**  y **SQL** oficial del proyecto *RenovaTech*, desarrollado como parte del curso de Base de Datos.  
 El proyecto forma parte de la iniciativa **ReNovaTech**, un sistema de gestión y seguimiento de proyectos de sostenibilidad ambiental en empresas.
 
 ## Contenido
