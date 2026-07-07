@@ -10,6 +10,8 @@ El proyecto forma parte de la iniciativa **ReNovaTech**, un sistema de gestión 
 - Índices y restricciones para garantizar integridad de datos.
 - Scripts de creación de base de datos relacional y no relacional.
 - Definición de tablas en SQL Server (participantes, direcciones, etc.) con claves primarias, restricciones y relaciones.
+- Inserción de datos en SQL y JSON para pruebas iniciales.
+- Consultas en SQL y MongoDB para análisis y reportes.
 
 ## Objetivo
 Centralizar la información de proyectos ambientales y facilitar:
