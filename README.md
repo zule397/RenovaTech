@@ -9,6 +9,7 @@ El proyecto forma parte de la iniciativa **ReNovaTech**, un sistema de gestión 
 - Validaciones de esquema con JSON Schema (longitudes, patrones, enums).
 - Índices y restricciones para garantizar integridad de datos.
 - Scripts de creación de base de datos relacional y no relacional.
+- Definición de tablas en SQL Server (participantes, direcciones, etc.) con claves primarias, restricciones y relaciones.
 
 ## Objetivo
 Centralizar la información de proyectos ambientales y facilitar:
