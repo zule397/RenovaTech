@@ -1,0 +1,103 @@
+use RenovaTech;
+
+db.participantes.insertMany([
+  { _id: 1, dni: "12345678", nombres: "Juan Perez",
+    razon_social: null, tipo: "Ciudadano", correo: "juan@gmail.com",
+    contrasena: "clave12345", fecha_registro: new Date(), estado_cuenta: "Activo",
+    direcciones: ["Av. Los Alamos 123"],
+    telefonos: ["987654321"] },
+  { _id: 2, dni: "87654321", nombres: "Maria Lopez",
+    razon_social: "Empresa Verde SAC", tipo: "Empresa", correo: "maria@gmail.com",
+    contrasena: "verde2026", fecha_registro: new Date(), estado_cuenta: "Activo",
+    direcciones: ["Jr. Primavera 456", "Av. Arequipa 1020"],
+    telefonos: ["912345678", "998877665"] },
+  { _id: 3, dni: "11223344", nombres: "Carlos Ruiz",
+    razon_social: "EcoLife ONG", tipo: "Organizacion", correo: "carlos@gmail.com",
+    contrasena: "ecolife01", fecha_registro: new Date(), estado_cuenta: "Activo",
+    direcciones: ["Av. Central 789"],
+    telefonos: ["999888777", "955443322"] }
+]);
+ 
+db.categorias.insertMany([
+  { _id: 1, categoria: "Reciclaje" },
+  { _id: 2, categoria: "Energia" },
+  { _id: 3, categoria: "Economia Circular" }
+]);
+
+db.recursos.insertMany([
+  { _id: 1, nombre: "Contenedores", tipo: "Material", stock: NumberDecimal("20.00") },
+  { _id: 2, nombre: "Panel Solar",  tipo: "Equipo",   stock: NumberDecimal("15.00") },
+  { _id: 3, nombre: "Guantes",      tipo: "Material", stock: NumberDecimal("100.00") }
+]);
+
+db.proyectos.insertMany([
+  { _id: 1,
+    nombre: "Reciclaje Urbano", descripcion: "Programa de reciclaje en zonas urbanas",
+    tipo: "Reciclaje", nivel_impacto: "Alto", ubicacion: "Lima",
+    fecha_inicio: new Date(), fecha_fin: new Date(), estado: "En proceso",
+    categorias: [
+      { categoria_id: 1, categoria: "Reciclaje" },
+      { categoria_id: 3, categoria: "Economia Circular" }
+    ],
+    equipo: [
+      { participante_id: 1, nombres: "Juan Perez",  rol: "Coordinador" },
+      { participante_id: 2, nombres: "Maria Lopez", rol: "Supervisor" }
+    ] },
+  { _id: 2,
+    nombre: "Energia Solar", descripcion: "Implementacion de paneles solares",
+    tipo: "Energia", nivel_impacto: "Alto", ubicacion: "Cusco",
+    fecha_inicio: new Date(), fecha_fin: new Date(), estado: "Planeado",
+    categorias: [
+      { categoria_id: 2, categoria: "Energia" }
+    ],
+    equipo: [
+      { participante_id: 3, nombres: "Carlos Ruiz", rol: "Asesor" }
+    ] }
+]);
+ 
+db.actividades.insertMany([
+  { _id: 1,
+    proyecto_id: 1,
+    nombre: "Recoleccion", descripcion: "Recolectar residuos reciclables",
+    fecha_inicio: new Date(), fecha_fin: new Date(), estado: "En proceso",
+    responsables: [
+      { participante_id: 1, nombres: "Juan Perez" },
+      { participante_id: 2, nombres: "Maria Lopez" }
+    ],
+    recursos: [
+      { recurso_id: 1, nombre: "Contenedores" },
+      { recurso_id: 3, nombre: "Guantes" }
+    ] }
+]);
+
+db.aportes.insertMany([
+  { proyecto_id: 1, participante_id: 1,
+    monto: NumberDecimal("150.00"), fecha: new Date(), medio_pago: "Yape", estado_transaccion: "Completado" },
+  { proyecto_id: 2, participante_id: 2,
+    monto: NumberDecimal("300.00"), fecha: new Date(), medio_pago: "Transferencia", estado_transaccion: "Pendiente" },
+  { proyecto_id: 1, participante_id: 3,
+    monto: NumberDecimal("80.50"), fecha: new Date(), medio_pago: "Plin", estado_transaccion: "Completado" }
+]);
+ 
+db.comentarios.insertMany([
+  { proyecto_id: 1, participante_id: 1,
+    mensaje: "Excelente iniciativa ambiental", fecha: new Date(), calificacion: NumberInt(5) },
+  { proyecto_id: 2, participante_id: 2,
+    mensaje: "Muy buen proyecto sostenible", fecha: new Date(), calificacion: NumberInt(4) }
+]);
+ 
+db.metricas_ambientales.insertMany([
+  { proyecto_id: 1, tipo_indicador: "CO2 Reducido",
+    valor_medido: NumberDecimal("250.50"), fecha_registro: new Date() },
+  { proyecto_id: 2, tipo_indicador: "Energia Ahorrada",
+    valor_medido: NumberDecimal("500.75"), fecha_registro: new Date() },
+  { proyecto_id: 1, tipo_indicador: "Residuos Reciclados",
+    valor_medido: NumberDecimal("1200.00"), fecha_registro: new Date() }
+]);
+ 
+db.reportes.insertMany([
+  { proyecto_id: 1, titulo: "Reporte Inicial",
+    descripcion: "Reporte del avance del proyecto de reciclaje", fecha_generacion: new Date(), tipo_reporte: "Avance" },
+  { proyecto_id: 2, titulo: "Reporte Solar",
+    descripcion: "Reporte de implementacion de paneles solares", fecha_generacion: new Date(), tipo_reporte: "Impacto" }
+]);
