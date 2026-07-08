@@ -2,7 +2,6 @@
 use RenovaTech;
 
 db.createCollection("actividades", {
-    "capped": false,
     "validator": {
         "$jsonSchema": {
             "bsonType": "object",
@@ -110,7 +109,6 @@ db.actividades.createIndex({
 });
 
 db.createCollection("aportes", {
-    "capped": false,
     "validator": {
         "$jsonSchema": {
             "bsonType": "object",
@@ -189,7 +187,6 @@ db.aportes.createIndex({
 });
 
 db.createCollection("categorias", {
-    "capped": false,
     "validator": {
         "$jsonSchema": {
             "bsonType": "object",
@@ -222,7 +219,6 @@ db.categorias.createIndex({
 });
 
 db.createCollection("comentarios", {
-    "capped": false,
     "validator": {
         "$jsonSchema": {
             "bsonType": "object",
@@ -280,7 +276,6 @@ db.comentarios.createIndex({
 });
 
 db.createCollection("metricas_ambientales", {
-    "capped": false,
     "validator": {
         "$jsonSchema": {
             "bsonType": "object",
@@ -333,7 +328,6 @@ db.metricas_ambientales.createIndex({
 });
 
 db.createCollection("participantes", {
-    "capped": false,
     "validator": {
         "$jsonSchema": {
             "bsonType": "object",
@@ -447,7 +441,6 @@ db.participantes.createIndex({
 });
 
 db.createCollection("proyectos", {
-    "capped": false,
     "validator": {
         "$jsonSchema": {
             "bsonType": "object",
@@ -569,7 +562,6 @@ db.proyectos.createIndex({
 });
 
 db.createCollection("recursos", {
-    "capped": false,
     "validator": {
         "$jsonSchema": {
             "bsonType": "object",
@@ -612,7 +604,6 @@ db.recursos.createIndex({
 });
 
 db.createCollection("reportes", {
-    "capped": false,
     "validator": {
         "$jsonSchema": {
             "bsonType": "object",
