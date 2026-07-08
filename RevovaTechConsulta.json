@@ -1,0 +1,100 @@
+use RenovaTech;
+
+// RECAUDACION TOTAL POR PROYECTO (solo aportes completados)
+db.aportes.aggregate([
+  { $match: { estado_transaccion: "Completado" } },
+  { $group: {
+      _id: "$proyecto_id",
+      total_recaudado: { $sum: "$monto" },
+      num_aportes: { $sum: 1 }
+  } },
+  { $sort: { total_recaudado: -1 } }
+]);
+ 
+
+// APORTES POR MEDIO DE PAGO (monto y cantidad) 
+db.aportes.aggregate([
+  { $group: {
+      _id: "$medio_pago",
+      monto_total: { $sum: "$monto" },
+      cantidad: { $sum: 1 }
+  } },
+  { $sort: { monto_total: -1 } }
+]);
+ 
+// APORTES POR ESTADO DE TRANSACCION - Reporte de cobranza: completado vs pendiente vs fallido.
+db.aportes.aggregate([
+  { $group: {
+      _id: "$estado_transaccion",
+      monto_total: { $sum: "$monto" },
+      cantidad: { $sum: 1 }
+  } },
+  { $sort: { cantidad: -1 } }
+]);
+ 
+ 
+// APORTE PROMEDIO POR MEDIO DE PAGO - Aporte promedio segun canal de pago.
+db.aportes.aggregate([
+  { $group: {
+      _id: "$medio_pago",
+      aporte_promedio: { $avg: "$monto" }
+  } },
+  { $sort: { aporte_promedio: -1 } }
+]);
+ 
+// RANKING DE PARTICIPANTES POR MONTO APORTADO (Top 5) - Contribuyentes principales.
+db.aportes.aggregate([
+  { $match: { estado_transaccion: "Completado" } },
+  { $group: {
+      _id: "$participante_id",
+      total_aportado: { $sum: "$monto" },
+      num_aportes: { $sum: 1 }
+  } },
+  { $sort: { total_aportado: -1 } },
+  { $limit: 5 }
+]);
+ 
+// IMPACTO AMBIENTAL TOTAL POR TIPO DE INDICADOR - cuanto CO2, energia, residuos, etc.
+db.metricas_ambientales.aggregate([
+  { $group: {
+      _id: "$tipo_indicador",
+      valor_total: { $sum: "$valor_medido" },
+      mediciones: { $sum: 1 }
+  } },
+  { $sort: { valor_total: -1 } }
+]);
+
+// IMPACTO AMBIENTAL TOTAL POR PROYECTO - Reporte de impacto acumulado por cada proyecto
+db.metricas_ambientales.aggregate([
+  { $group: {
+      _id: "$proyecto_id",
+      impacto_total: { $sum: "$valor_medido" }
+  } },
+  { $sort: { impacto_total: -1 } }
+]);
+ 
+// CALIFICACION PROMEDIO Y # DE COMENTARIOS POR PROYECTO - Reporte de satisfaccion
+db.comentarios.aggregate([
+  { $group: {
+      _id: "$proyecto_id",
+      calificacion_promedio: { $avg: "$calificacion" },
+      num_comentarios: { $sum: 1 }
+  } },
+  { $sort: { calificacion_promedio: -1 } }
+]);
+
+// NUMERO DE PROYECTOS POR ESTADO 
+db.proyectos.aggregate([
+  { $group: {
+      _id: "$estado",
+      cantidad: { $sum: 1 }
+  } },
+  { $sort: { cantidad: -1 } }
+]);
+ 
+// PROYECTOS ACTIVOS DE ALTO IMPACTO - Reporte de priorizacion: iniciativas en proceso mas relevantes.
+db.proyectos.aggregate([
+  { $match: { estado: "En proceso", nivel_impacto: "Alto" } },
+  { $project: { _id: 0, nombre: 1, ubicacion: 1, estado: 1, nivel_impacto: 1 } },
+  { $sort: { nombre: 1 } }
+]);
